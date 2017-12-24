@@ -77,7 +77,7 @@ import javax.swing.table.JTableHeader;
 	    private int NumRows = 15;
 	    public int NOB = 0;              // NUMBER OF BLOCKS
 	    public int  NumOfTrs = 0;
-	    private int fixedColumns = 5;    // number of columns to be frozen
+	    private int fixedColumns = 5;    // Number of columns to be frozen
 	    
 	    public static int[] myNumbers = null;
 	    String column_header[] = {"Date", "Day", "Time", "FYJC","SYJC"};
