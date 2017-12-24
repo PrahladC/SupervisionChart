@@ -123,7 +123,7 @@ import javax.swing.table.JTableHeader;
 	        new JPanel(new GridBagLayout());
 	        
 	        Object[][] data = new String[NumRows][40];
-	 //////       Object[] headers =new String[17];
+	 ////      Object[] headers =new String[17];    /////
 	        tableModel = new DefaultTableModel(data, headers);
 	        jTable.setModel(tableModel);
 	      
