@@ -1,4 +1,6 @@
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -47,6 +49,8 @@ public class supchartcontroller {
 	
 	public static void show(String msg) {JOptionPane.showMessageDialog(null, msg);}
 	public void Show(int msg) {JOptionPane.showMessageDialog(null, msg);}
+	
+	 private ActionListener namesListener, blocksListener, distriListener;
 
 	public supchartcontroller (supchartmodel model, supchartview view){
 		  
@@ -62,8 +66,94 @@ public class supchartcontroller {
 		
 	}
 		
-	public supchartcontroller() {
-		// TODO Auto-generated constructor stub
+	public void control() {
+
+		namesListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnAllot();			
+			}
+		};
+
+		blocksListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnBlox();				
+			}
+		};
+
+		distriListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnDistri();				
+			}
+		};
+
+		
+		
+		View.getNamesButton().addActionListener(namesListener);
+		View.getBlocksButton().addActionListener(blocksListener);
+		View.getDistriButton().addActionListener(distriListener);
+		
+		
+	}
+
+	protected void BtnDistri() {
+		// TODO Auto-generated method stub
+		distribute();
+		show("PAUSE");					
+		Randomizer();
+    	show("PAUSE");
+    	int NOT =  NumberOfTeachers();
+    	for( int i = 0; i < NOT; i++) {
+			SwapDuties();	            		
+		}        
+    	SumOfDuties();		
+	}
+
+	private void SwapDuties() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void Randomizer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void distribute() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void BtnBlox() {
+		
+		  JOptionPane JOP = new JOptionPane();
+		  String NemsOfBlox = JOptionPane.showInputDialog("Enter the Block Codes");	
+		  JOptionPane.showMessageDialog(JOP, NemsOfBlox);
+		  String[] splitBlox = NemsOfBlox.split(",");
+		  NumOfTrs = NumberOfTeachers();
+		  int start = supchartview.randInt(0, NumOfTrs);
+		  int bloc = 0;
+//			  Show(start);
+		  for(int j = start ; j < splitBlox.length + start ; j++){
+			  SetData2(splitBlox[bloc],0,(j % NumOfTrs + 5));
+			  bloc++;
+		  }
+
+		
+	}
+
+	protected void BtnAllot() {
+
+		JOptionPane JOP = new JOptionPane();
+		  String NemsOfSups = JOptionPane.showInputDialog("Enter the CODE Names of Supervisors ( Up To 4 characters )");	
+		  JOptionPane.showMessageDialog(JOP, NemsOfSups);
+		  String[] splitNames = NemsOfSups.split(",");
+		   for (int i = 0; i < splitNames.length; i++){
+			 JTableHeader TablHdr = View.getTable().getTableHeader();
+			 TableColumnModel tcm = TablHdr.getColumnModel();
+			 TableColumn tc = tcm.getColumn(i);
+			 tc.setHeaderValue(splitNames[i].toUpperCase());
+			 TablHdr.repaint();			   
+		   }
 	}
 
 	public void ClearTable()

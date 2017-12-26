@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -53,6 +54,13 @@ public class supchartview extends javax.swing.JFrame {
     private JTextField textField1;
     private JTextField textField2; 
     private JTextField textField3;
+    
+    private JButton buttonDistri;
+    private JButton buttonLoad;
+    private JButton buttonAllot;
+    private JButton buttonBlox;
+
+    
     private int NumRows = 15;
     public int NOB = 0;              // NUMBER OF BLOCKS
     public int  NumOfTrs = 0;
@@ -68,8 +76,6 @@ public class supchartview extends javax.swing.JFrame {
             " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ",
             " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " "};    //  new String[17];
     public String[] splitBlox;
-    private JButton buttonAllot;
-    private JButton buttonBlox;
 
 	public String GetData (JTable table, int row_index, int col_index) {  
 		return jTable.getModel().getValueAt(row_index, col_index).toString(); 
@@ -205,44 +211,12 @@ for (int k = 0; k < column_header.length; k++){
   	northPanel.add(Label2);
     northPanel.add(textField2);
 //    ClearTable();
+    
     buttonAllot = new JButton("Enter Names");
     northPanel.add(buttonAllot);
-    buttonAllot.addActionListener(new ActionListener() {		
-		  public void actionPerformed(ActionEvent arg0) {
-			  JOptionPane JOP = new JOptionPane();
-			  String NemsOfSups = JOptionPane.showInputDialog("Enter the CODE Names of Supervisors ( Up To 4 characters )");	
-			  JOptionPane.showMessageDialog(JOP, NemsOfSups);
-			  String[] splitNames = NemsOfSups.split(",");
-			   for (int i = 0; i < splitNames.length; i++){
-				 JTableHeader TablHdr = jTable.getTableHeader();
-				 TableColumnModel tcm = TablHdr.getColumnModel();
-				 TableColumn tc = tcm.getColumn(i);
-				 tc.setHeaderValue(splitNames[i].toUpperCase());
-				 TablHdr.repaint();			   
-	           }   
-		//	   NumOfTrs = splitNames.length;
-	      }	
-   });            
-    
+     
     buttonBlox = new JButton("Enter Blocks");
     northPanel.add(buttonBlox);
-    buttonBlox.addActionListener(new ActionListener() {		
-		  public void actionPerformed(ActionEvent arg0) {
-			  JOptionPane JOP = new JOptionPane();
-			  String NemsOfBlox = JOptionPane.showInputDialog("Enter the Block Codes");	
-			  JOptionPane.showMessageDialog(JOP, NemsOfBlox);
-			  String[] splitBlox = NemsOfBlox.split(",");
-			  NumOfTrs = NumberOfTeachers();
-			  int start = randInt(0, NumOfTrs);
-			  int bloc = 0;
-//				  Show(start);
-			  for(int j = start ; j < splitBlox.length + start ; j++){
-				  SetData2(splitBlox[bloc],0,(j % NumOfTrs + 5));
-				  bloc++;
-			  }
-			 
-	      }		
- });                
        
   	add(northPanel, BorderLayout.NORTH);        
 
@@ -250,12 +224,11 @@ for (int k = 0; k < column_header.length; k++){
     
   	JPanel southPanel = new JPanel();
     
-  	JButton buttonDistri = new JButton("Distribute");
+  	buttonDistri = new JButton("Distribute");
+  	buttonDistri.setFont(new Font("Times New Roman", Font.BOLD, 14));
+  	southPanel.add(buttonDistri);
     buttonDistri.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub	
-//				System.exit(0);
-//			System.exit(0);
 				distribute();
 				show("PAUSE");					
 				Randomizer();
@@ -268,7 +241,9 @@ for (int k = 0; k < column_header.length; k++){
 		}		
     });
 
-    final JButton buttonLoad = new JButton("Load");        
+    buttonLoad = new JButton("Load");   
+    buttonLoad.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonLoad);
     buttonLoad.addActionListener(new ActionListener() {      
 	      public void actionPerformed(ActionEvent e) {
 		String fyle = "";
@@ -295,7 +270,7 @@ for (int k = 0; k < column_header.length; k++){
 	  }		
 }); 
 
-final JButton buttonSave = new JButton("Save");
+  final JButton buttonSave = new JButton("Save");
     buttonSave.addActionListener(new ActionListener(){        
           public void actionPerformed(ActionEvent e){                         
 				String fyle="";
@@ -338,7 +313,7 @@ final JButton buttonSave = new JButton("Save");
             }
     });
 
-    
+    add(southPanel, BorderLayout.SOUTH);
 	
 }
 
@@ -365,6 +340,18 @@ final JButton buttonSave = new JButton("Save");
 
 	 public JTextField Textfield3(){
 	        return textField3;
+	    }
+	 
+     public JButton getNamesButton(){
+	        return buttonAllot;
+	    }
+
+     public JButton getBlocksButton(){
+	        return buttonBlox;
+	    }
+     
+     public JButton getDistriButton(){
+	        return buttonDistri;
 	    }
 	
 	 

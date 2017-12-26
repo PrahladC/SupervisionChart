@@ -14,7 +14,7 @@ public class SupervisionChartmain {
 					supchartview View = new supchartview();
 					supchartmodel Model = new supchartmodel();
 					supchartcontroller Controller = new supchartcontroller(Model, View);
-//					Controller.control();
+					Controller.control();
 					View.setVisible(true);
 //					View.setLocationRelativeTo(null);
 					View.setResizable(false);
