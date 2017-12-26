@@ -60,6 +60,9 @@ public class supchartview extends javax.swing.JFrame {
     private JButton buttonAllot;
     private JButton buttonBlox;
     private JButton buttonSave;
+    private JButton buttonUpdate;
+    private JButton buttonMasterprint;
+    private JButton buttonIndprint;
 
     
     private int NumRows = 15;
@@ -237,20 +240,20 @@ for (int k = 0; k < column_header.length; k++){
     buttonDistri.setFont(new Font("Times New Roman", Font.BOLD, 14));
     southPanel.add(buttonSave);
     
-    JButton buttonUpdate = new JButton("Update");
-    buttonUpdate.addActionListener(new ActionListener() 
-    {
-    	 public void actionPerformed(ActionEvent arg0) 
-            {
-            	int rows = jTable.getRowCount();
-            	int NOTs =  NumberOfTeachers();
-                for(int j = 5; j < NOTs + 5; j++){
-                	SetData2(TotalOfIndividualDuties(j), rows-2, j);
-                }           	
-                SumOfDuties();
-            }
-    });
+    buttonUpdate = new JButton("Update");
+    buttonUpdate.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonUpdate);
+    
+    buttonMasterprint = new JButton("Master Print");
+    buttonMasterprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonMasterprint);
+    
+    buttonIndprint = new JButton("Ind.Print");
+    buttonIndprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonIndprint);
 
+    
+    
     add(southPanel, BorderLayout.SOUTH);
 	
 }
@@ -295,12 +298,22 @@ for (int k = 0; k < column_header.length; k++){
      public JButton getLoadButton(){
     	    return buttonLoad;
      }
-
-     
+    
      public JButton getSaveButton(){
  	    return buttonSave;
   }
 
+     public JButton getUpdateButton(){
+  	    return buttonUpdate;
+   }
+     
+     public JButton getMasterprintButton(){
+   	    return buttonMasterprint;
+    }
+     
+     public JButton getIndprintButton(){
+    	    return buttonIndprint;
+     }
      
      
 		public void ClearTable()
