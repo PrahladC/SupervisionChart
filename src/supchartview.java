@@ -59,6 +59,7 @@ public class supchartview extends javax.swing.JFrame {
     private JButton buttonLoad;
     private JButton buttonAllot;
     private JButton buttonBlox;
+    private JButton buttonSave;
 
     
     private int NumRows = 15;
@@ -227,78 +228,15 @@ for (int k = 0; k < column_header.length; k++){
   	buttonDistri = new JButton("Distribute");
   	buttonDistri.setFont(new Font("Times New Roman", Font.BOLD, 14));
   	southPanel.add(buttonDistri);
-    buttonDistri.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent arg0) {
-				distribute();
-				show("PAUSE");					
-				Randomizer();
-            	show("PAUSE");
-            	int NOT =  NumberOfTeachers();
-            	for( int i = 0; i < NOT; i++) {
-        			SwapDuties();	            		
-        		}        
-            	SumOfDuties();
-		}		
-    });
 
     buttonLoad = new JButton("Load");   
     buttonLoad.setFont(new Font("Times New Roman", Font.BOLD, 14));
     southPanel.add(buttonLoad);
-    buttonLoad.addActionListener(new ActionListener() {      
-	      public void actionPerformed(ActionEvent e) {
-		String fyle = "";
-		JFileChooser chooser = new JFileChooser();
-        chooser.setMultiSelectionEnabled(true);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter(
-                "SupervisionChart", "sup");
-        chooser.setFileFilter(filter);
-        chooser.setCurrentDirectory(new File("E:/SupervisionChart"));
-       
-        int option = chooser.showOpenDialog(buttonLoad);
-        
-        if (option == JFileChooser.APPROVE_OPTION)
-          {
-            File[] sf = chooser.getSelectedFiles();
-            String filelist = "nothing";
-            if (sf.length > 0) filelist = sf[0].getName();
-            for (int i = 1; i < sf.length; i++) 
-            { filelist += ", " + sf[i].getName(); }
-            fyle=sf[0].getPath();
-            if (!fyle.endsWith(".sup")) fyle+= ".sup";
-		    Model.LoadFile(fyle);                                    //Load File is called here
-		 }  
-	  }		
-}); 
 
-  final JButton buttonSave = new JButton("Save");
-    buttonSave.addActionListener(new ActionListener(){        
-          public void actionPerformed(ActionEvent e){                         
-				String fyle="";
-				JFileChooser chooser = new JFileChooser();
-	            chooser.setMultiSelectionEnabled(true);
-	            FileNameExtensionFilter filter = new FileNameExtensionFilter(
-	                    "SupervisionChart", "sup");
-	            chooser.setFileFilter(filter);
-	            chooser.setCurrentDirectory(new File("E:/SupervisionChart"));
-	            int option = chooser.showSaveDialog(buttonSave);
-
-	            if (option == JFileChooser.APPROVE_OPTION)
-	             {
-	                File[] sf = chooser.getSelectedFiles();
-	                String filelist = "nothing";
-	                if (sf.length > 0) filelist = sf[0].getName();
-	                for (int i = 1; i < sf.length; i++) 
-	                  {
-	                    filelist += ", " + sf[i].getName();
-	                  }
-	                fyle=sf[0].getPath();
-	                
-	                if (!fyle.endsWith(".sup")) fyle+= ".sup";
-
-	                Model.SaveToFile(fyle);                             //Save to File is called here
-	             }  			 	              	  
-        }	   
-    });
+    buttonSave = new JButton("Save");
+    buttonDistri.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonSave);
+    
     JButton buttonUpdate = new JButton("Update");
     buttonUpdate.addActionListener(new ActionListener() 
     {
@@ -354,7 +292,17 @@ for (int k = 0; k < column_header.length; k++){
 	        return buttonDistri;
 	    }
 	
-	 
+     public JButton getLoadButton(){
+    	    return buttonLoad;
+     }
+
+     
+     public JButton getSaveButton(){
+ 	    return buttonSave;
+  }
+
+     
+     
 		public void ClearTable()
 		{  int rows = jTable.getRowCount();
 			 int cols = jTable.getColumnCount();
@@ -409,7 +357,7 @@ for (int k = 0; k < column_header.length; k++){
 				    return randomNum;
 				}
 
-				public void Randomizer(){
+/*				public void Randomizer(){
 					int NOT = NumberOfTeachers();
 					int NOD = NODOfExams();   int NOB = NumberOfBlocks();
 					ClearjTable();
@@ -460,16 +408,13 @@ for (int k = 0; k < column_header.length; k++){
 						        }
 						    }
 						    return  status;           
-						}
+						}          */
 
 				
-				public void distribute(){
-					 //  NOB = Number Of Blocks , NOT = Number Of Teachers
+/*				public void distribute(){
 					 int NOT = NumberOfTeachers();
 					 int rows = jTable.getRowCount(); 
 					 int NOB = NumberOfBlocks();
-//					 Show(NOT);
-//					 Show(NOB);
 						 ClearjTable();
 						 int c = 0;
 						 for(int i = 0; i < NODOfExams(); i++){
@@ -480,8 +425,7 @@ for (int k = 0; k < column_header.length; k++){
 							 }		 
 						 }	 
 						 SumOfDuties();
-				  }			  
-
+				  }			  */
 				
 			public void SumOfDuties(){
 					   String ColValue = null;
@@ -555,7 +499,7 @@ for (int k = 0; k < column_header.length; k++){
 			  }
 
 			
-			public void SwapDuties(){
+/*			public void SwapDuties(){
 				
 				int NOT = NumberOfTeachers();
 		    	int NOD = NODOfExams();
@@ -563,8 +507,6 @@ for (int k = 0; k < column_header.length; k++){
 		    	int G = LargestNumDuties(NumberOfTeachers());
 				int S = LeastNumDuties(NumberOfTeachers());
 		    	int R = recever(),  D = donor();             //  R = Reciever's Column value , D = Donor's Column value.
-//		    	show("Largest Number of duties is for " + G + "the person \nAnd the Least Number of duties is for " + S 
-//		    			+ "th person \nSo the Reciever is : " +R + "th Person " + " \n And Donor is : " + G + "th person");
 				if(R == -1 && D ==-1){show("Process Over  !!!");return; }
 		    	int TotalNumOfSupervisions = NOD*NOB;
 		    	float NOfSup2eachTr = ((float) TotalNumOfSupervisions)/ (float) NOT;
@@ -579,7 +521,7 @@ for (int k = 0; k < column_header.length; k++){
 					 return;
 				   }
 			     }    	
-			}
+			}                             */
 
 			public int LeastNumDuties(int NumOfTeachers){
 				int Minimum = 5;
