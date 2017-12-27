@@ -63,7 +63,9 @@ public class supchartview extends javax.swing.JFrame {
     private JButton buttonUpdate;
     private JButton buttonMasterprint;
     private JButton buttonIndprint;
-
+    private JButton buttonFYJCTTprint;
+    private JButton buttonSYJCTTprint;
+    private JButton buttonEqualizeprint;
     
     private int NumRows = 15;
     public int NOB = 0;              // NUMBER OF BLOCKS
@@ -251,8 +253,18 @@ for (int k = 0; k < column_header.length; k++){
     buttonIndprint = new JButton("Ind.Print");
     buttonIndprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
     southPanel.add(buttonIndprint);
-
     
+    buttonFYJCTTprint = new JButton("FYJC TT");
+    buttonIndprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonFYJCTTprint);
+    
+    buttonSYJCTTprint = new JButton("SYJC TT");
+    buttonIndprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonSYJCTTprint); 
+    
+    buttonEqualizeprint = new JButton("Equalize");
+    buttonIndprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonEqualizeprint);
     
     add(southPanel, BorderLayout.SOUTH);
 	
@@ -314,6 +326,19 @@ for (int k = 0; k < column_header.length; k++){
      public JButton getIndprintButton(){
     	    return buttonIndprint;
      }
+     
+     public JButton getFYJCTTprintButton(){
+ 	    return buttonFYJCTTprint;
+  }
+      
+     public JButton getSYJCTTprintButton(){
+  	    return buttonSYJCTTprint;
+   }
+     
+     public JButton getEqualizeButton(){
+   	    return buttonEqualizeprint;
+    }
+     
      
      
 		public void ClearTable()

@@ -620,7 +620,7 @@ import javax.swing.table.JTableHeader;
 	        buttonFYTT.addActionListener(new ActionListener()
 	        {	
 	          public void actionPerformed(ActionEvent arg0)
-	             {
+	             
 	              {   
 	 	       		 try {
 	 	       		  PrinterJob pjob = PrinterJob.getPrinterJob();
@@ -713,7 +713,7 @@ import javax.swing.table.JTableHeader;
 	 	   			} catch (PrinterException pe) { pe.printStackTrace(); }	
 
 	 	            }	            	
-	             }
+	             
 	        });
 	        
 	        JButton buttonSYTT = new JButton("SYJC TT");

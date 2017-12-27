@@ -69,8 +69,8 @@ public class supchartcontroller {
 	public static void show(String msg) {JOptionPane.showMessageDialog(null, msg);}
 	public void Show(int msg) {JOptionPane.showMessageDialog(null, msg);}
 	
-	 private ActionListener namesListener, blocksListener, distriListener, loadListener, saveListener,
-	                        updateListener, masterprintListener, indprintListener;
+	 private ActionListener namesListener, blocksListener, distriListener, loadListener, saveListener, equalizeListener,
+	                        updateListener, masterprintListener, indprintListener, FYJCTTListener, SYJCTTListener;
 
 	public supchartcontroller (supchartmodel model, supchartview view){
 		  
@@ -136,6 +136,25 @@ public class supchartcontroller {
 			}
 		};
 		
+		FYJCTTListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnFYJCTTprint();				
+			}
+		};
+		
+		SYJCTTListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnSYJCTTprint();				
+			}
+		};
+		
+		equalizeListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnEqualize();				
+			}
+		};
+
+		
 		
 		View.getNamesButton().addActionListener(namesListener);
 		View.getBlocksButton().addActionListener(blocksListener);
@@ -145,6 +164,214 @@ public class supchartcontroller {
 		View.getUpdateButton().addActionListener(updateListener);
 		View.getMasterprintButton().addActionListener(masterprintListener);
 		View.getIndprintButton().addActionListener(indprintListener);
+		View.getFYJCTTprintButton().addActionListener(FYJCTTListener);
+		View.getSYJCTTprintButton().addActionListener(SYJCTTListener);
+		View.getEqualizeButton().addActionListener(equalizeListener);
+		
+	}
+
+	protected void BtnEqualize() {
+		
+//		RemoveDuplicates();		
+		show("TO BE DONE");
+		
+	}
+
+	private void RemoveDuplicates() {
+
+		      	int nod = NODOfExams();
+//		      	show(GetData(jTable, 0, 5));
+		      	for (int i = 0; i < nod; i++){
+		      		for (int j = 0; j < nod; j++){
+		      	      if (i != j && GetData(View.getTable(), i, 5).trim().length() != 0 && GetData(View.getTable(), j, 5).trim().length() != 0
+		      	    		&& GetData(View.getTable(), i, 5) == GetData(View.getTable(), j, 5)) 
+		      	        { show("Room No. : " + GetData(View.getTable(), i, 5)+" in " + i +"th row is repeated i.e. " 
+		      	                + GetData(View.getTable(), j, 5) +" in " +j + "th Row  ");}
+		      	      else show("No Rooms or Blocks are repeated");      	            	
+		      	    }
+		      	}                               
+			  }
+	
+
+	protected void BtnSYJCTTprint() {
+   		 try {
+   			  final int totalpages  = 1;
+   		      PrinterJob pjob = PrinterJob.getPrinterJob();
+  		      PageFormat pf = pjob.pageDialog(pjob.defaultPage());
+   		      pjob.setJobName("SYJC - TIME TABLE");
+   	//		      pjob.setCopies(1);
+   		      pjob.setPrintable(new Printable() {
+	   	             public int print(Graphics pg, PageFormat pf, int pageNum)
+	 	   		        {
+	 	   		        if (pageNum < totalpages) { 
+	 	   		          int NOD = NODOfExams();
+	 	   		          Font newFont;    
+	 	   		          int StartX = 72, StartY = 82, EndX = 522 ;        // Border coordinates 	   		          
+	   		              int StartPosX = EndX/2 + StartX/2;  int LastY = 0;
+	   		          
+	   				  newFont = new Font("Times New Roman", Font.PLAIN, 14);  
+	   				  pg.setFont(newFont);	   				  
+	   		          FontMetrics metrics = pg.getFontMetrics(newFont);
+	   				  String CollName = View.Textfield3().getText().toUpperCase();
+	   				  int  ColNameWidth = (int) (metrics.stringWidth(CollName));	   				  
+	   				  pg.drawString(CollName, StartPosX-(ColNameWidth)/2, StartY);
+	   				 pg.drawLine(StartX, (StartY+25), EndX, (StartY+25));
+	 	   				  newFont = new Font("Times New Roman", Font.PLAIN, 12);  
+	 	   				  pg.setFont(newFont);	   				  
+	 	   				  String str0 = View.Textfield0().getText().toUpperCase();
+	 	   				  pg.drawString("STREAM : "+ str0, 72, 105);
+	 	   				  String str1 = View.Textfield1().getText().toUpperCase();
+	 	   				  pg.drawString("EXAM  : " + str1, 240, 105);
+	 	   				  pg.drawString("CLASS  :  SYJC", 440, 105);	 	   				  
+	 	   				  newFont = new Font("Times New Roman", Font.BOLD, 12);  
+	 	   				  pg.setFont(newFont);
+	 	   				for(int j = 0; j < 4; j++){
+		 	   				pg.drawRect(100 + j*100, 150, 100, 25);        // Printing Rectangular grid Headings
+		 	   			}
+	 	   				  pg.drawString("DATE", 130, 167);
+	 	   				  pg.drawString("DAY", 230, 167);
+	 	   			      pg.drawString("SUBJECT", 320, 167);
+	 	   		          pg.drawString("TIME", 430, 167);                
+	 	   		          
+	 	   		          newFont = new Font("Times New Roman", Font.BOLD, 14);  
+	   				      pg.setFont(newFont);
+	 	   				  pg.drawString("TIME  TABLE", 245, 125);
+	 	   				  pg.drawLine(242, 128 , 345, 128);
+	 	   				
+//	 	   				  pg.drawLine(20, 100 , 600, 100);
+/*	 	   				  newFont = new Font("Times New Roman", Font.PLAIN, 9);  
+	 	   				  pg.setFont(newFont);	       
+	 	   				        */				
+	 	   				 int skip = 0; 
+	 	   				 for(int i = 0; i < NOD; i++){
+	 	   				   if (GetData(View.getTable(), i, 4).trim().isEmpty()){skip--; }	
+		   				    for(int j = 0; j < 4; j++){ 	 	   					  	   							
+	 	   						 pg.drawRect(100 + j*100, 175 + (i+skip)*25, 100, 25);        // Printing Rectangular grid
+	 	   					         LastY = 200 + (i+skip)*25;  
+	 	   					  }	   					
+	 	   				  }                      
+	 	   				int skip1 = 0; 
+	   					  for(int i = 0; i < NOD; i++){ 	
+	  	   					    newFont = new Font("Times New Roman", Font.PLAIN, 14);          
+	 		   				    pg.setFont(newFont);	
+	 		   				if (GetData(View.getTable(), i, 4).trim().isEmpty()){skip1--; }
+	 		   				  else{
+	 		   				    pg.drawString((String)GetData(View.getTable(), i, 0), 125, 195 + (i+skip1)*25);     // Printing Exam Dates
+	 	   					    pg.drawString((String)GetData(View.getTable(), i, 1), 235, 195 + (i+skip1)*25);     // Printing Exam Day
+	 	   					    pg.drawString((String)GetData(View.getTable(), i, 4), 330, 195 + (i+skip1)*25);     // Printing Subjects
+	 	   					    pg.drawString((String)GetData(View.getTable(), i, 2), 410, 195 + (i+skip1)*25);     // Printing Exam Timings
+	 		   				  }
+	   	
+	 	   					  }                   
+	 	   					newFont = new Font("Times New Roman", Font.PLAIN, 14);          
+	 		   				pg.setFont(newFont);	
+	 		   				pg.drawString("Exam - Chair Person", 72, LastY + 100);  
+	 		   				pg.drawString("Co-ordinator", 275, LastY + 100);
+	 		   				pg.drawString("Vice Principal", 435, LastY + 100);       
+   				 	 	   				    
+   				  return Printable.PAGE_EXISTS;                     // ie., end of job
+   				}
+   			 else
+   				{
+   				 return Printable.NO_SUCH_PAGE;
+   				}
+   			}
+   		});
+   				
+   		    if (pjob.printDialog() == false)                        // choose printer
+   			 return; 
+   			 pjob.print(); 
+   			} catch (PrinterException pe) { pe.printStackTrace(); }	
+
+		
+	}
+
+	protected void BtnFYJCTTprint() {
+   		 try {
+   			  final int totalpages  = 1;
+       		  PrinterJob pjob = PrinterJob.getPrinterJob();
+  		      PageFormat pf = pjob.pageDialog(pjob.defaultPage());
+   		      pjob.setJobName("FYJC - TIME TABLE");
+   		      pjob.setPrintable(new Printable() {
+   	             public int print(Graphics pg, PageFormat pf, int pageNum)
+   		        {
+   		        if (pageNum < totalpages) { 
+   		          int NOD = NODOfExams();
+   		          Font newFont;    
+   		          int rows = View.getTable().getRowCount();	 	   		          	 	   		     
+		              int StartX = 72, StartY = 82, EndX = 522 ;        // Border coordinates 	   		          
+		              int StartPosX = EndX/2 + StartX/2;  int LastY = 0;
+		          
+				  newFont = new Font("Times New Roman", Font.PLAIN, 14);  
+				  pg.setFont(newFont);	   				  
+		          FontMetrics metrics = pg.getFontMetrics(newFont);
+				  String CollName = View.Textfield3().getText().toUpperCase();
+				  int  ColNameWidth = (int) (metrics.stringWidth(CollName));	   				  
+				  pg.drawString(CollName, StartPosX-(ColNameWidth)/2, StartY);
+				 pg.drawLine(StartX, (StartY+25), EndX, (StartY+25));
+   				  newFont = new Font("Times New Roman", Font.PLAIN, 12);  
+   				  pg.setFont(newFont);	   				  
+   				  String str0 = View.Textfield0().getText().toUpperCase();
+   				  pg.drawString("STREAM : "+ str0, 72, 105);
+   				  String str1 = View.Textfield1().getText().toUpperCase();
+   				  pg.drawString("EXAM  : " + str1, 240, 105);
+   				  pg.drawString("CLASS  :  FYJC", 440, 105);	 	   				  
+   				  newFont = new Font("Times New Roman", Font.BOLD, 12);  
+   				  pg.setFont(newFont);
+   				for(int j = 0; j < 4; j++){
+	   				pg.drawRect(100 + j*100, 150, 100, 25);        // Printing Rectangular grid Headings
+	   			}
+   				  pg.drawString("DATE", 130, 167);
+   				  pg.drawString("DAY", 230, 167);
+   			      pg.drawString("SUBJECT", 320, 167);
+   		          pg.drawString("TIME", 430, 167);                
+   		          
+   		          newFont = new Font("Times New Roman", Font.BOLD, 14);  
+				      pg.setFont(newFont);
+   				  pg.drawString("TIME  TABLE", 245, 125);
+   				  pg.drawLine(242, 128 , 345, 128);
+   				 int skip = 0; 
+   				 for(int i = 0; i < NOD; i++){
+   				   if (GetData(View.getTable(), i, 3).trim().isEmpty()){skip--; }	
+  				    for(int j = 0; j < 4; j++){ 	 	   					  	   							
+   						 pg.drawRect(100 + j*100, 175 + (i+skip)*25, 100, 25);        // Printing Rectangular grid
+   					         LastY = 200 + (i+skip)*25;  
+   					  }	   					
+   				  }                      
+   				int skip1 = 0; 
+					  for(int i = 0; i < NOD; i++){ 	
+	   					    newFont = new Font("Times New Roman", Font.PLAIN, 14);          
+	   				    pg.setFont(newFont);	
+	   				if (GetData(View.getTable(), i, 3).trim().isEmpty()){skip1--; }
+	   				  else{
+	   				    pg.drawString((String)GetData(View.getTable(), i, 0), 125, 195 + (i+skip1)*25);     // Printing Exam Dates
+   					    pg.drawString((String)GetData(View.getTable(), i, 1), 235, 195 + (i+skip1)*25);     // Printing Exam Day
+   					    pg.drawString((String)GetData(View.getTable(), i, 3), 330, 195 + (i+skip1)*25);     // Printing Subjects
+   					    pg.drawString((String)GetData(View.getTable(), i, 2), 410, 195 + (i+skip1)*25);     // Printing Exam Timings
+	   				  }
+	
+   					  }                   
+   					newFont = new Font("Times New Roman", Font.PLAIN, 14);          
+	   				pg.setFont(newFont);	
+	   				pg.drawString("Exam - Chair Person", 72, LastY + 100);  
+	   				pg.drawString("Co-ordinator", 275, LastY + 100);
+	   				pg.drawString("Vice Principal", 435, LastY + 100);       
+
+   					  
+   				  return Printable.PAGE_EXISTS;                       // ie., end of job
+   				}
+   			 else
+   				{
+   				 return Printable.NO_SUCH_PAGE;
+   				}
+   			}
+   		});
+   				
+   		    if (pjob.printDialog() == false)                        // choose printer
+   			 return; 
+   			 pjob.print(); 
+   			} catch (PrinterException pe) { pe.printStackTrace(); }	
+
 		
 	}
 
@@ -403,6 +630,7 @@ public class supchartcontroller {
                 "SupervisionChart", "sup");
         chooser.setFileFilter(filter);
         chooser.setCurrentDirectory(new File("E:/SupervisionChart"));
+        chooser.setCurrentDirectory(new File("/home/prahallad/Test Entries"));
 //        int option = chooser.showSaveDialog(buttonSave);
         int option = chooser.showSaveDialog(View.getSaveButton());
 
