@@ -1,3 +1,4 @@
+
 import java.awt.BasicStroke;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -70,7 +71,8 @@ public class supchartcontroller {
 	public void Show(int msg) {JOptionPane.showMessageDialog(null, msg);}
 	
 	 private ActionListener namesListener, blocksListener, distriListener, loadListener, saveListener, equalizeListener,
-	                        updateListener, masterprintListener, indprintListener, FYJCTTListener, SYJCTTListener;
+	                        updateListener, masterprintListener, indprintListener, FYJCTTListener, SYJCTTListener,
+	                        setPrinterListener;
 
 	public supchartcontroller (supchartmodel model, supchartview view){
 		  
@@ -153,6 +155,13 @@ public class supchartcontroller {
 				BtnEqualize();				
 			}
 		};
+		
+		setPrinterListener = new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BtnSetPrinter();				
+			}
+		};
+
 
 		
 		
@@ -167,6 +176,17 @@ public class supchartcontroller {
 		View.getFYJCTTprintButton().addActionListener(FYJCTTListener);
 		View.getSYJCTTprintButton().addActionListener(SYJCTTListener);
 		View.getEqualizeButton().addActionListener(equalizeListener);
+		View.getSetPrinterButton().addActionListener(setPrinterListener);
+		
+	}
+
+	protected void BtnSetPrinter() {
+		// TODO Auto-generated method stub
+		setPrinter sp=new setPrinter();
+        String printername=sp.SelectPrinter();
+        Model.setPrinterName(printername);
+        View.setPrinterLabel(printername);
+
 		
 	}
 

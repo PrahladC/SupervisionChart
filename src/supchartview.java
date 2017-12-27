@@ -54,6 +54,7 @@ public class supchartview extends javax.swing.JFrame {
     private JTextField textField1;
     private JTextField textField2; 
     private JTextField textField3;
+    private JLabel lblPrinter;
     
     private JButton buttonDistri;
     private JButton buttonLoad;
@@ -66,7 +67,8 @@ public class supchartview extends javax.swing.JFrame {
     private JButton buttonFYJCTTprint;
     private JButton buttonSYJCTTprint;
     private JButton buttonEqualizeprint;
-    
+    private JButton buttonSetPrinter;
+        
     private int NumRows = 15;
     public int NOB = 0;              // NUMBER OF BLOCKS
     public int  NumOfTrs = 0;
@@ -265,6 +267,16 @@ for (int k = 0; k < column_header.length; k++){
     buttonEqualizeprint = new JButton("Equalize");
     buttonIndprint.setFont(new Font("Times New Roman", Font.BOLD, 14));
     southPanel.add(buttonEqualizeprint);
+
+    buttonSetPrinter = new JButton("Set Printer");
+    buttonSetPrinter.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(buttonSetPrinter);
+    
+    lblPrinter = new JLabel("Printer Name ");
+    lblPrinter.setFont(new Font("Times New Roman", Font.BOLD, 14));
+    southPanel.add(lblPrinter);
+
+
     
     add(southPanel, BorderLayout.SOUTH);
 	
@@ -338,7 +350,14 @@ for (int k = 0; k < column_header.length; k++){
      public JButton getEqualizeButton(){
    	    return buttonEqualizeprint;
     }
+
+     public JButton getSetPrinterButton(){
+ 	    return buttonSetPrinter;
+  }
      
+	   public void setPrinterLabel(String text){
+	    	lblPrinter.setText("   "+text);
+	    }
      
      
 		public void ClearTable()

@@ -47,6 +47,11 @@ public class supchartmodel {
      	return  path;
     }
 
+	public void setPrinterName(String printername)
+    {
+       this.PrinterName = printername;
+    }
+
 	
 
 int NumberOfTeachers(){

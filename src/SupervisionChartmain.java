@@ -17,7 +17,7 @@ public class SupervisionChartmain {
 					Controller.control();
 					View.setVisible(true);
 //					View.setLocationRelativeTo(null);
-					View.setResizable(false);
+//					View.setResizable(false);
 				}
 
 	        });
