@@ -20,14 +20,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
-import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -318,8 +313,7 @@ public class supchartcontroller {
    		        if (pageNum < totalpages) { 
    		          int NOD = NODOfExams();
    		          Font newFont;    
-   		          int rows = View.getTable().getRowCount();	 	   		          	 	   		     
-		              int StartX = 72, StartY = 82, EndX = 522 ;        // Border coordinates 	   		          
+   		          int StartX = 72, StartY = 82, EndX = 522 ;        // Border coordinates 	   		          
 		              int StartPosX = EndX/2 + StartX/2;  int LastY = 0;
 		          
 				  newFont = new Font("Times New Roman", Font.PLAIN, 14);  
@@ -415,7 +409,7 @@ public class supchartcontroller {
 //		        	Show(NOD);
 		        	
 		     if (pageNum < totalpages) { 
-		    	 int StartX = 72, StartY = 82, EndX = 522, EndY = 770, HtDiff = 20 ;        // Border coordinates	 
+		    	 int StartX = 72, StartY = 82, EndX = 522, HtDiff = 20 ;        // Border coordinates	 
 		    	 int MidPageX = 297;        //  (EndX + StartX)/2;
 		        	Font newFont;
 			        newFont = new Font("Times New Roman", Font.PLAIN, 14);
@@ -466,7 +460,6 @@ public class supchartcontroller {
 			           pg.drawString(GetData(View.getTable(),l,2), (StartX+1)+width*l, (StartY+90)+175*a);     // Printing Timings
 			         }
 			     }  
-			     for(int i =0; i < NOTs; i++){
 			         for(a = 0; a < 4; a++){	    				     
 				    	 newFont = new Font("Times New Roman", Font.PLAIN, 10);       // Printing Supervisor's Codes
 					   	 pg.setFont(newFont);	
@@ -477,8 +470,7 @@ public class supchartcontroller {
 				   		  if (SupNames.length() > 10){ pg.drawString( SupNames.substring(0, 10), StartX + 2, (StartY+41)+175*a ); }
 				   		  else pg.drawString( SupNames, StartX + 2, (StartY+41)+175*a );	
 			         }
-		         }   
-			     
+		     
 			     
 			     for (a = 0; a < 4; a++){	    				         
 			         for(l = 0; l < NOD; l++){
@@ -535,8 +527,8 @@ public class supchartcontroller {
 	            	 
 	              if (pageNum < totalpages) {
 		          int NOD = NODOfExams();
-		          int StartX = 72, StartY = 82, EndX = 522, EndY = 770, HtDiff = 20 ;        // Border coordinates 
-		          Font newFont;     int width = 35, ht = 15; 
+		          int StartX = 72, StartY = 82, EndX = 522, HtDiff = 20 ;        // Border coordinates 
+		          Font newFont;     int width = 35; 
 		          int StartPosX = EndX/2 + StartX/2;
 		          int rows = View.getTable().getRowCount();
 				  newFont = new Font("Times New Roman", Font.PLAIN, 14);  
@@ -573,7 +565,6 @@ public class supchartcontroller {
 					}	   					
 				  }                                  
 // 				  Show(pageNum);
-			     for(int i =0; i < NOTs; i++){
 		         for(int a = 0; a < 35; a++){	    				     
 			    	 newFont = new Font("Times New Roman", Font.PLAIN, 9);       // Printing Supervisor's Codes
 				   	 pg.setFont(newFont);	
@@ -584,7 +575,6 @@ public class supchartcontroller {
 			   		  if (SupNames.length() > 10){ pg.drawString( SupNames.substring(0, 10), StartX + 2, 203+15*a ); }
 			   		  else pg.drawString( SupNames, StartX + 2, 203+15*a );	
 		         }
-	         }                                       
 				  	   				 
 				    for(int i = 0; i < NOD + 1; i++){
 					  newFont = new Font("Times New Roman", Font.PLAIN, 7);          // Printing Exam Dates and Subjects
@@ -675,7 +665,6 @@ public class supchartcontroller {
 		 try {fw = new FileWriter(fyle); }    catch (IOException e1){e1.printStackTrace();}
 		 String newLine = System.getProperty("line.separator");
 		 int rows = View.getTable().getRowCount();
-		 int cols = View.getTable().getColumnCount();
 		 int freezcols = View.getFreezeTable().getColumnCount();
 		 try { fw.write(View.Textfield3().getText()+newLine); }  catch (IOException e1) {e1.printStackTrace();}
 		 try { fw.write(View.Textfield0().getText()+newLine); }  catch (IOException e1) {e1.printStackTrace();}
