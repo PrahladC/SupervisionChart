@@ -641,6 +641,7 @@ public class supchartcontroller {
         chooser.setFileFilter(filter);
         chooser.setCurrentDirectory(new File("E:/SupervisionChart"));
         chooser.setCurrentDirectory(new File("/home/prahallad/Test Entries"));
+        chooser.setCurrentDirectory(new File("/home/siws/Blank Entries"));
 //        int option = chooser.showSaveDialog(buttonSave);
         int option = chooser.showSaveDialog(View.getSaveButton());
 
